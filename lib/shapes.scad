@@ -1,6 +1,8 @@
 
 $fn = 128;
 
+// ==== 2D ====
+
 module superellipse(r, p, e=1) {
     function x(r,p,e,a) =   r*pow(abs(cos(a)),2/p)*sign(cos(a));
     function y(r,p,e,a) = e*r*pow(abs(sin(a)),2/p)*sign(sin(a));
@@ -12,9 +14,26 @@ module superellipse(r, p, e=1) {
     ]);
 }
 
-module chamfered_cylinder(h, r1, r2, chamfer=1) {
+module squircle(r) {
+    superellipse(r, 4);
+}
+
+// ==== 3D ====
+
+module chamfered_cylinder(h, r1, r2, c=1) {
     hull() {
-        cylinder(h, r1-chamfer, r2-chamfer);
-        translate([0, 0, chamfer]) cylinder(h-2*chamfer, r1, r2);
+        cylinder(h, r1-c, r2-c);
+        translate([0, 0, c]) cylinder(h-2*c, r1, r2);
+    }
+}
+
+module squylinder(h, r) {
+    linear_extrude(h) squircle(r);
+}
+
+module chamfered_squylinder(h, r, c=1) { 
+    hull() {
+        squylinder(h, r-c); 
+        translate([0, 0, c]) squylinder(h-2*c, r);
     }
 }
