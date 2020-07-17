@@ -1,6 +1,4 @@
 
-$fn = 128;
-
 // ==== 2D ====
 
 module superellipse(r, p, e=1) {

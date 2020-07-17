@@ -4,7 +4,7 @@ use <lib/gears.scad>
 use <lib/nema17.scad>
 use <lib/gopro.scad>
 
-$fn = 64;
+$fn = 128;
 
 tol_x = .2;
 tol_z = .4;
@@ -13,11 +13,11 @@ module male() {
     difference() {
         union() {
             translate([0, 0, -5]) hull() {
-                chamfered_cylinder(5-tol_z, 20, 20);
+                chamfered_cylinder(5-tol_z, 14, 14);
                 translate([-60, 0, 0]) chamfered_squylinder(5-tol_z, 24);
             }
             translate([0, 0, -15]) hull() {
-                chamfered_cylinder(5-tol_z, 20, 20);
+                chamfered_cylinder(5-tol_z, 14, 14);
                 translate([-60, 0, 0]) chamfered_squylinder(5-tol_z, 24);
             }
             translate([-60, 0, -20]) chamfered_squylinder(25-tol_z, 24);
@@ -34,12 +34,12 @@ module male() {
         difference() {
             union() {
                 translate([0, 0, -5]) hull() {
-                    chamfered_cylinder(5-tol_z, 20, 20);
+                    chamfered_cylinder(5-tol_z, 14, 14);
                     translate([-60, 0, 0]) scale([.5, 1, 1])
                     chamfered_squylinder(5-tol_z, 24);
                 }
                 translate([0, 0, -15]) hull() {
-                    chamfered_cylinder(5-tol_z, 20, 20);
+                    chamfered_cylinder(5-tol_z, 14, 14);
                     translate([-60, 0, 0]) scale([.5, 1, 1])
                     chamfered_squylinder(5-tol_z, 24);
                 }
@@ -56,11 +56,11 @@ module male() {
 
 module female() {
     simple_gear(72, 5-tol_z, -1024);
-    translate([0, 0, -10]) chamfered_cylinder(5-tol_z, 20, 20);
-    translate([0, 0, -20]) chamfered_cylinder(5-tol_z, 20, 20);
+    translate([0, 0, -10]) chamfered_cylinder(5-tol_z, 16, 16);
+    translate([0, 0, -20]) chamfered_cylinder(5-tol_z, 16, 16);
     translate([0, 0, -20]) cylinder(24, r=7);
-    translate([-15, 0, 5-tol_z+8.5]) rotate([0, 90, 90]) gopro_female();
-    translate([ 15, 0, 5-tol_z+8.5]) rotate([0, 90, 90]) gopro_female();
+    translate([-15, 0, 5-tol_z+9]) rotate([0, 90, 90]) gopro_female(1.5, base=true);
+    translate([ 15, 0, 5-tol_z+9]) rotate([0, 90, 90]) gopro_female(1.5, base=true);
 }
 
 module motor_gear() {
@@ -76,9 +76,9 @@ module motor_gear() {
     }
 }
 
-translate([-60, 0, -2]) mirror([0, 0, 1]) nema17();
-translate([-60, 0, 0]) rotate([0, 0, 360/24])
-motor_gear();
+//translate([-60, 0, -2]) mirror([0, 0, 1]) nema17();
+//translate([-60, 0, 0]) rotate([0, 0, 360/24])
+//motor_gear();
 
 male();
 female();
